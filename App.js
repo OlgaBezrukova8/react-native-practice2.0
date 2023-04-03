@@ -16,46 +16,32 @@ import {
 } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
-const windowDimensions = Dimensions.get("window");
-const screenDimensions = Dimensions.get("screen");
+
+const windowDimensions = Dimensions.get("window").width - 20 * 2;
+const screenDimensions = Dimensions.get("screen").height - 20 * 2;
 
 export default function App() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [dimensions, setDimensions] = useState(
-    Dimensions.get("window").width - 20 * 2
-    // window: windowDimensions.width - 20 * 2,
-    // screen: screenDimensions,
-
-    // TODO: add conditiont to landscape screen
-  );
-
-  const [fontsLoaded] = useFonts({
-    "Roboto-Regular": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
-    "Roboto-Bold": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
+  const [dimensions, setDimensions] = useState({
+    window: windowDimensions,
+    screen: screenDimensions,
   });
-
-  // useEffect(() => {
-  //   const onChange = () => {
-  //     const width = Dimensions.get("window").width;
-  //     console.log(width);
-  //   };
-  //   Dimensions.addEventListener("change", onChange);
-  //   return () => {
-  //     Dimensions.removeEventListener("change", onChange);
-  //   };
-  // }, []);
 
   useEffect(() => {
     const subscription = Dimensions.addEventListener(
       "change",
       ({ window, screen }) => {
-        setDimensions({ window, screen });
+        setDimensions({ window: window.width, screen: screen.height });
       }
     );
-    console.log(dimensions);
     return () => subscription?.remove();
+  });
+
+  const [fontsLoaded] = useFonts({
+    "Roboto-Regular": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
+    "Roboto-Bold": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
   });
 
   const keyboardHide = () => {
@@ -92,7 +78,8 @@ export default function App() {
               style={{
                 ...styles.form,
                 marginBottom: isShowKeyboard ? 30 : 100,
-                width: dimensions,
+                width: dimensions.window - 20 * 2,
+                // height: dimensions.screen - 20 * 2,
               }}
             >
               <View style={styles.header}>
@@ -134,7 +121,7 @@ export default function App() {
                 activeOpacity={0.7}
                 onPress={keyboardHide}
               >
-                <Text style={styles.buttonTitle}>Log in </Text>
+                <Text style={styles.buttonTitle}>Log in</Text>
               </TouchableOpacity>
             </View>
           </KeyboardAvoidingView>
@@ -157,7 +144,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  form: {  marginBottom: 70 },
+  form: { marginBottom: 70 },
 
   inputTitle: {
     marginBottom: 8,
