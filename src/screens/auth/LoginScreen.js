@@ -9,6 +9,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   TouchableOpacity,
+  TouchableHighlight,
   ImageBackground,
   Text,
   Dimensions,
@@ -106,10 +107,17 @@ const LoginScreen = ({ navigation }) => {
                 <Text style={styles.buttonTitle}>Log in</Text>
               </TouchableOpacity>
 
-              <Button
-                title="Sign up to get started"
+              <TouchableHighlight
+                activeOpacity={0.5}
+                underlayColor={{ color: "#8fbc8f" }}
+                style={styles.textLink}
                 onPress={() => navigation.navigate("Register")}
-              />
+              >
+                <Text>
+                  New to the application?{" "}
+                  <Text style={styles.textLinkText}>Sign up</Text>
+                </Text>
+              </TouchableHighlight>
             </View>
           </KeyboardAvoidingView>
         </ImageBackground>
@@ -136,7 +144,7 @@ const styles = StyleSheet.create({
   inputTitle: {
     marginBottom: 8,
     textTransform: "uppercase",
-    fontFamily: "Roboto-Regular",
+    // fontFamily: "Roboto-Regular",
   },
 
   input: {
@@ -171,6 +179,18 @@ const styles = StyleSheet.create({
     }),
   },
 
+  textLink: {
+    marginTop: 20,
+    alignItems: "center",
+  },
+
+  textLinkText: {
+    color: "#708090",
+    padding: 10,
+    fontSize: 16,
+    fontWeight: "700",
+  },
+
   header: {
     alignItems: "center",
     marginBottom: 50,
@@ -178,7 +198,7 @@ const styles = StyleSheet.create({
 
   headerTitle: {
     fontSize: 18,
-    fontFamily: "Roboto-Regular",
+    // fontFamily: "Roboto-Regular",
   },
 });
 

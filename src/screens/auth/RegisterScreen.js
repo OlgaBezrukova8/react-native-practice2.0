@@ -8,6 +8,7 @@ import {
   Platform,
   Keyboard,
   TouchableWithoutFeedback,
+  TouchableHighlight,
   TouchableOpacity,
   ImageBackground,
   Text,
@@ -82,7 +83,7 @@ const RegisterScreen = ({ navigation }) => {
                     setIsShowKeyboard(true);
                   }}
                   onChangeText={nameHandler}
-                  value={email}
+                  value={name}
                 />
               </View>
 
@@ -121,13 +122,19 @@ const RegisterScreen = ({ navigation }) => {
                 <Text style={styles.buttonTitle}>Sign up</Text>
               </TouchableOpacity>
 
-              <Button
-                title="Login to get started"
+              <TouchableHighlight
+                activeOpacity={0.5}
+                underlayColor={{ color: "#8fbc8f" }}
+                style={styles.textLink}
                 onPress={() => {
-                  keyboardHide();
                   navigation.navigate("Login");
                 }}
-              />
+              >
+                <Text>
+                  Have you already registered?{" "}
+                  <Text style={styles.textLinkText}>Sign in</Text>
+                </Text>
+              </TouchableHighlight>
             </View>
           </KeyboardAvoidingView>
         </ImageBackground>
@@ -154,7 +161,7 @@ const styles = StyleSheet.create({
   inputTitle: {
     marginBottom: 8,
     textTransform: "uppercase",
-    fontFamily: "Roboto-Regular",
+    // fontFamily: "Roboto-Regular",
   },
 
   input: {
@@ -189,6 +196,18 @@ const styles = StyleSheet.create({
     }),
   },
 
+  textLink: {
+    marginTop: 20,
+    alignItems: "center",
+  },
+
+  textLinkText: {
+    color: "#708090",
+    padding: 10,
+    fontSize: 16,
+    fontWeight: "700",
+  },
+
   header: {
     alignItems: "center",
     marginBottom: 50,
@@ -196,7 +215,7 @@ const styles = StyleSheet.create({
 
   headerTitle: {
     fontSize: 18,
-    fontFamily: "Roboto-Regular",
+    // fontFamily: "Roboto-Regular",
   },
 });
 
