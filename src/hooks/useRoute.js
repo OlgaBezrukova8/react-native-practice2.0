@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Feather, Octicons, FontAwesome5 } from "@expo/vector-icons";
 
 const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
@@ -10,6 +10,7 @@ import LoginScreen from "../screens/auth/LoginScreen";
 import PostsScreen from "../screens/main/PostsScreen";
 import CreateScreen from "../screens/main/CreateScreen";
 import ProfileScreen from "../screens/main/ProfileScreen";
+import DefaultPostsScreen from "../screens/nested/DefaultPostsScreen";
 
 export const useRoute = (isAuth) => {
   if (!isAuth) {
@@ -34,19 +35,37 @@ export const useRoute = (isAuth) => {
   }
   return (
     <MainTab.Navigator
-      tabBarOptions={
-        {
-          //   showLabel: false
-        }
-      }
+      screenOptions={{
+        tabBarShowLabel: false,
+      }}
     >
       <MainTab.Screen
-        options={{ tabBarIcon: ({ focused, size, color }) => {} }}
+        options={{
+          tabBarIcon: ({ focused, size, color }) => (
+            <Feather name="home" size={size} color={color} />
+          ),
+        }}
         name="Posts"
         component={PostsScreen}
       />
-      <MainTab.Screen name="Create" component={CreateScreen} />
-      <MainTab.Screen name="Profile" component={ProfileScreen} />
+      <MainTab.Screen
+        options={{
+          tabBarIcon: ({ focused, size, color }) => (
+            <Octicons name="diff-added" size={size} color={color} />
+          ),
+        }}
+        name="Create"
+        component={CreateScreen}
+      />
+      <MainTab.Screen
+        options={{
+          tabBarIcon: ({ focused, size, color }) => (
+            <FontAwesome5 name="user-circle" size={size} color={color} />
+          ),
+        }}
+        name="Profile"
+        component={ProfileScreen}
+      />
     </MainTab.Navigator>
   );
 };
